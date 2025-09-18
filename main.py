@@ -3,7 +3,6 @@ from generator_utils import even_odd_generator
 
 
 if __name__ == "__main__":
-    # Демонстрація функцій
     print_string("Hello World")
     analyze_string("HELLO")
     analyze_string("hello")
@@ -11,7 +10,6 @@ if __name__ == "__main__":
 
     print(uppercase_list())
 
-    # Генератор
     gen = even_odd_generator()
     for _ in range(4):
         print(next(gen))
