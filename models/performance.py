@@ -37,3 +37,4 @@ class DesiredPerformance(Performance):
             "desired_scores": self._scores,
             "desired_average": self.average_score()
         }
+ 
