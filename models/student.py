@@ -1,5 +1,5 @@
 class Student:
-    """Класс СТУДЕНТ — все поля приватные, доступ через свойства."""
+    """Клас СТУДЕНТ — усі поля приватні, доступ через властивості."""
     def __init__(self, last_name: str, first_name: str, patronymic: str,
                  group_number: str, birth_date: str = None, address: str = None):
         self.__last_name = last_name.strip()
