@@ -24,7 +24,7 @@ class Catcher:
         
         if self.canvas.coords(self.id)[2] < self.canvas_width:
             self.x = 20
-            
+
     def draw(self):
 
         self.canvas.move(self.id, self.x, 0)
@@ -36,3 +36,16 @@ class Catcher:
 
         elif pos[2] >= self.canvas_width:
             self.x = 0
+
+    def catch(self, eggs):
+        
+        catcher_pos = self.canvas.coords(self.id)
+        
+        for egg in eggs:
+            egg_pos = self.canvas.coords(egg.id)
+            
+            if (catcher_pos[0] < egg_pos[2] < catcher_pos[2] and 
+                catcher_pos[1] < egg_pos[3] < catcher_pos[3]):
+                eggs.remove(egg)
+                self.canvas.delete(egg.id)
+                self.score.catched_egg()
