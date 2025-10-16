@@ -21,8 +21,9 @@ class Catcher:
         if self.canvas.coords(self.id)[0] > 0:
             self.x = -20
     def turn_right(self, evt):
-        
-        if self.canvas.coords(self.id)[2] < self.canvas_width:
+            
+        canvas_width = self.canvas.winfo_width()
+        if self.canvas.coords(self.id)[2] < canvas_width:
             self.x = 20
 
     def draw(self):
