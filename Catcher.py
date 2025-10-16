@@ -15,3 +15,8 @@ class Catcher:
         
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+
+    def turn_left(self, evt):
+        
+        if self.canvas.coords(self.id)[0] > 0:
+            self.x = -20
