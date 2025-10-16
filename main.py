@@ -58,3 +58,5 @@ canvas.create_text(
     font=('Helvetica', 20), 
     fill='red'
 )
+
+tk.update()
