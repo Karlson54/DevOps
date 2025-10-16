@@ -27,3 +27,8 @@ class Score:
         
         self.score += 1
         self.show_text()
+
+    def lost_egg(self):
+
+        self.lost += 1
+        self.show_text()
