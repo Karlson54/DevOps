@@ -44,3 +44,10 @@ while 1:
     
     if score.lost >= 5:
         break
+
+canvas.create_text(
+    250, 200, 
+    text="Гра завершена!", 
+    font=('Helvetica', 30), 
+    fill='red'
+)
