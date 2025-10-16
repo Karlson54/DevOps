@@ -60,3 +60,5 @@ canvas.create_text(
 )
 
 tk.update()
+
+time.sleep(3)
