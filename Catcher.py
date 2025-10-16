@@ -24,3 +24,15 @@ class Catcher:
         
         if self.canvas.coords(self.id)[2] < self.canvas_width:
             self.x = 20
+            
+    def draw(self):
+
+        self.canvas.move(self.id, self.x, 0)
+        
+        pos = self.canvas.coords(self.id)
+        
+        if pos[0] <= 0:
+            self.x = 0
+
+        elif pos[2] >= self.canvas_width:
+            self.x = 0
