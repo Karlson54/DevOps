@@ -22,3 +22,8 @@ class Score:
                 self.text, 
                 text=f"Спіймав: {self.score} Пропустив: {self.lost}"
             )
+
+    def catched_egg(self):
+        
+        self.score += 1
+        self.show_text()
