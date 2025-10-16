@@ -51,3 +51,10 @@ canvas.create_text(
     font=('Helvetica', 30), 
     fill='red'
 )
+
+canvas.create_text(
+    250, 250, 
+    text=f"Ви пропустили {score.lost} яєць.", 
+    font=('Helvetica', 20), 
+    fill='red'
+)
