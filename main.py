@@ -24,3 +24,23 @@ eggs = []
 
 tk.update()
 time.sleep(1)
+
+while 1:
+    if random.randint(1, 100) == 1:
+        eggs.append(Egg(canvas, 'red', score))
+    
+    for egg in list(eggs):
+        if egg.draw() == 'hit bottom':
+            eggs.remove(egg)
+    
+    catcher.catch(eggs)
+    
+    catcher.draw()
+    
+    tk.update_idletasks()
+    tk.update()
+    
+    time.sleep(0.01)
+    
+    if score.lost >= 5:
+        break
