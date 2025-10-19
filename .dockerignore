@@ -1,0 +1,31 @@
+# Python кеш та скомпільовані файли
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker файли (не потрібні всередині image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Логи та тимчасові файли
+*.log
+*.tmp
+.env
+
+# Документація
+README.md
+docs/
