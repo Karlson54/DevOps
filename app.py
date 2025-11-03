@@ -38,3 +38,14 @@ def error():
         logging.exception("An error occurred!")
         send_to_statsd(f"Error occurred: {str(e)}")
         return "Помилка оброблена. Перевірте логи.", 500
+
+@app.route('/status')
+def status():
+    global request_count
+    request_count += 1
+    uptime = time.time() - start_time
+    logging.info("Status route accessed")
+    return jsonify({
+        "uptime_seconds": round(uptime, 2),
+        "requests": request_count
+    })
