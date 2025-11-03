@@ -49,3 +49,6 @@ def status():
         "uptime_seconds": round(uptime, 2),
         "requests": request_count
     })
+
+if __name__ == '__main__':
+    app.run(debug=True)
