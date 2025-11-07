@@ -44,3 +44,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+ROOT_URLCONF = 'myblog.urls'
+
+SECRET_KEY = 'your-secret-key-here'
+
+DEBUG = True
+ALLOWED_HOSTS = []
+
+STATIC_URL = '/static/'
