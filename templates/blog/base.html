@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Django Blog - Personal blog about web development">
+    <title>{% block title %}{% endblock %} - MyBlog</title>
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -13,7 +14,16 @@
     </div>
     <div id="sidebar">
         <h2>My Blog</h2>
-        <p>This is my blog about web development and Django.</p>
+        <p>Personal blog about web development, Django, and Python.</p>
+        
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="{% url 'blog:post_list' %}">Home</a></li>
+            <li><a href="/admin/">Admin Panel</a></li>
+        </ul>
+        
+        <h3>About</h3>
+        <p>This blog is built with Django framework as part of DevOps practical work.</p>
     </div>
 </body>
 </html>
