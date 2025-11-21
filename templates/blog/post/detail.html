@@ -3,38 +3,45 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
-<p class="date">
-    Published {{ post.publish }} by {{ post.author }}
-</p>
-{{ post.body|linebreaks }}
-<p>
-    <a href="{% url 'blog:post_share' post.id %}">
-        Share this post
-    </a>
-</p>
-
-{% with comments.count as total_comments %}
-    <h2>
-        {{ total_comments }} comment{{ total_comments|pluralize }}
-    </h2>
-{% endwith %}
-
-{% for comment in comments %}
-    <div class="comment">
-        <p class="info">
-            Comment {{ forloop.counter }} by {{ comment.name }}
-            {{ comment.created }}
-        </p>
-        {{ comment.body|linebreaks }}
+<article>
+    <h1>{{ post.title }}</h1>
+    <p class="date">
+        Published {{ post.publish|date:"F d, Y" }} by {{ post.author }}
+    </p>
+    
+    <div class="post-content">
+        {{ post.body|linebreaks }}
     </div>
-{% empty %}
-    <p>There are no comments yet.</p>
-{% endfor %}
+    
+    <div style="margin: 30px 0; padding: 20px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+        <a href="{% url 'blog:post_share' post.id %}" class="action-link">
+            📧 Share this post
+        </a>
+        <a href="{% url 'blog:post_list' %}" class="action-link">
+            ← Back to all posts
+        </a>
+    </div>
+</article>
 
-{% include "blog/post/includes/comment_form.html" %}
+<section id="comments">
+    {% with comments.count as total_comments %}
+        <h2>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
 
-<p>
-    <a href="{% url 'blog:post_list' %}">← Back to posts</a>
-</p>
+    {% for comment in comments %}
+        <div class="comment">
+            <p class="info">
+                Comment #{{ forloop.counter }} by <strong>{{ comment.name }}</strong> on
+                {{ comment.created|date:"F d, Y \a\t H:i" }}
+            </p>
+            {{ comment.body|linebreaks }}
+        </div>
+    {% empty %}
+        <p style="color: #7f8c8d; font-style: italic;">No comments yet. Be the first to comment!</p>
+    {% endfor %}
+
+    {% include "blog/post/includes/comment_form.html" %}
+</section>
 {% endblock %}
