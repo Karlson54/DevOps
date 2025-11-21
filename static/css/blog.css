@@ -28,6 +28,11 @@ h1 {
     padding-bottom: 10px;
 }
 
+h2 {
+    color: #333;
+    margin-top: 30px;
+}
+
 h2 a {
     color: #0066cc;
     text-decoration: none;
@@ -78,4 +83,65 @@ p {
 .pagination .current {
     color: #666;
     font-weight: bold;
+}
+
+/* Comment styles */
+.comment {
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #f9f9f9;
+    border-left: 3px solid #0066cc;
+}
+
+.comment .info {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Form styles */
+form {
+    margin: 20px 0;
+}
+
+form p {
+    margin: 15px 0;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+form input[type="submit"] {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0052a3;
 }
