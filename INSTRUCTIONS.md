@@ -44,6 +44,8 @@
 7. **Відкрити в браузері**
    - Головна: http://127.0.0.1:8000/
    - Адмін-панель: http://127.0.0.1:8000/admin/
+   - RSS Feed: http://127.0.0.1:8000/feed/
+   - Sitemap: http://127.0.0.1:8000/sitemap.xml
 
 ## Структура проекту
 ```
@@ -51,10 +53,12 @@ myblog/
 ├── blog/                  # Додаток блогу
 │   ├── migrations/        # Міграції БД
 │   ├── management/        # Команди управління
-│   ├── templates/         # Не використовується (використовуємо глобальні)
+│   ├── templatetags/      # Власні шаблонні теги
 │   ├── admin.py          # Налаштування адмін-панелі
+│   ├── feeds.py          # RSS стрічка
 │   ├── forms.py          # Форми
 │   ├── models.py         # Моделі даних
+│   ├── sitemaps.py       # Карта сайту
 │   ├── urls.py           # URL маршрути додатку
 │   └── views.py          # Представлення
 ├── myblog/               # Налаштування проекту
@@ -73,7 +77,7 @@ myblog/
 
 ## Функціонал
 
-### Реалізовано:
+### Реалізовано у Практичній роботі №6:
 - ✅ Список постів з пагінацією (3 пости на сторінку)
 - ✅ Детальний перегляд посту
 - ✅ SEO-дружні URL з датою та slug
@@ -82,8 +86,23 @@ myblog/
 - ✅ Адмін-панель для управління контентом
 - ✅ Розділення постів на статуси (Draft/Published)
 
+### Реалізовано у Практичній роботі №7:
+- ✅ Тегування постів (django-taggit)
+- ✅ Фільтрація постів за тегами
+- ✅ Схожі пости на основі тегів
+- ✅ Власні шаблонні теги:
+  - `total_posts` - загальна кількість постів
+  - `show_latest_posts` - останні пости
+  - `get_most_commented_posts` - найбільш коментовані пости
+  - `markdown` фільтр - підтримка Markdown синтаксису
+- ✅ RSS стрічка новин
+- ✅ Карта сайту (sitemap.xml)
+- ✅ Підтримка Markdown для форматування постів
+- ✅ Готовність до міграції на PostgreSQL
+
 ### Можливості адмін-панелі:
 - Управління постами (створення, редагування, видалення)
+- Управління тегами
 - Модерація коментарів
 - Фільтрація та пошук
 - Автоматичне заповнення slug
@@ -107,6 +126,9 @@ python manage.py migrate
 
 # Відкрити Django shell
 python manage.py shell
+
+# Збір статичних файлів
+python manage.py collectstatic
 ```
 
 ## Email функціонал
@@ -122,10 +144,92 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 ```
 
+## Робота з тегами
+
+### Додавання тегів до постів через адмін-панель:
+1. Відкрийте http://127.0.0.1:8000/admin/
+2. Перейдіть до розділу "Posts"
+3. Виберіть пост для редагування
+4. У полі "Tags" введіть теги через кому: `django, python, tutorial`
+5. Збережіть пост
+
+### Перегляд постів за тегом:
+- URL формат: `http://127.0.0.1:8000/tag/<tag-slug>/`
+- Приклад: `http://127.0.0.1:8000/tag/django/`
+
+## Markdown синтаксис
+
+Пости підтримують Markdown форматування:
+
+```markdown
+# Заголовок 1
+## Заголовок 2
+### Заголовок 3
+
+**Жирний текст**
+*Курсив*
+
+- Список
+- Елементів
+
+1. Нумерований
+2. Список
+
+[Посилання](https://example.com)
+```
+
+## Міграція на PostgreSQL (опціонально)
+
+Для використання PostgreSQL замість SQLite:
+
+1. **Встановіть PostgreSQL**
+   - Завантажте з https://www.postgresql.org/download/
+
+2. **Створіть базу даних**
+```sql
+   CREATE USER blog WITH PASSWORD 'your_password';
+   CREATE DATABASE blog OWNER blog ENCODING 'UTF8';
+```
+
+3. **Оновіть settings.py**
+```python
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'blog',
+           'USER': 'blog',
+           'PASSWORD': 'your_password',
+           'HOST': 'localhost',
+           'PORT': '5432',
+       }
+   }
+```
+
+4. **Експортуйте дані з SQLite**
+```bash
+   python manage.py dumpdata --indent=2 --output=mysite_data.json
+```
+
+5. **Застосуйте міграції**
+```bash
+   python manage.py migrate
+```
+
+6. **Імпортуйте дані**
+```bash
+   python manage.py loaddata mysite_data.json
+```
+
 ## Troubleshooting
 
 ### Проблема: "No module named 'django'"
 **Рішення**: Переконайтеся, що віртуальне середовище активоване
+
+### Проблема: "No module named 'taggit'"
+**Рішення**: 
+```bash
+pip install django-taggit
+```
 
 ### Проблема: Статичні файли не завантажуються
 **Рішення**: 
@@ -138,3 +242,9 @@ python manage.py collectstatic
 ```bash
 python manage.py migrate --run-syncdb
 ```
+
+### Проблема: Теги не відображаються
+**Рішення**: Переконайтеся, що:
+1. django-taggit встановлено
+2. Міграції застосовано
+3. У шаблоні використано `{% load blog_tags %}`
