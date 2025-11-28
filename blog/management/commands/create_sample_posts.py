@@ -5,10 +5,10 @@ from django.utils import timezone
 
 
 class Command(BaseCommand):
-    help = 'Creates sample blog posts in Ukrainian'
+    help = 'Creates sample blog posts in Ukrainian with tags'
 
     def handle(self, *args, **kwargs):
-        # Отримуємо або створюємо користувача
+        # Get or create user
         user, created = User.objects.get_or_create(
             username='admin',
             defaults={
@@ -23,7 +23,7 @@ class Command(BaseCommand):
             user.save()
             self.stdout.write(self.style.SUCCESS('Created admin user (password: admin123)'))
 
-        # Створюємо пости
+        # Create posts with tags
         posts_data = [
             {
                 'title': 'Про мене',
@@ -33,21 +33,23 @@ class Command(BaseCommand):
 Я студент, який вивчає Django та Python. У цьому блозі я ділюся своїм досвідом навчання, 
 цікавими знахідками та проектами, над якими працюю.
 
-Основні напрямки, якими я цікавлюся:
+## Основні напрямки
+
 - Веб-розробка з Django
 - Python програмування
 - DevOps практики
 - Базі даних та ORM
 
 Сподіваюся, що мій досвід буде корисним для інших студентів!''',
-                'status': Post.Status.PUBLISHED
+                'status': Post.Status.PUBLISHED,
+                'tags': ['introduction', 'about']
             },
             {
                 'title': 'Як досягти успіху в онлайн-навчанні',
                 'slug': 'uspikh-v-onlayn-navchanni',
                 'body': '''Онлайн-навчання стає все більш популярним, але воно має свої виклики.
 
-**Основні поради для успішного онлайн-навчання:**
+## Основні поради для успішного онлайн-навчання
 
 1. **Створіть чіткий розклад** - Визначте години для навчання і дотримуйтесь їх
 2. **Організуйте робоче місце** - Зручне, тихе місце без відволікаючих факторів
@@ -56,82 +58,89 @@ class Command(BaseCommand):
 5. **Не бійтеся просити допомоги** - Викладачі та однокурсники завжди готові допомогти
 
 Головне - залишатися мотивованим і зосередженим на своїх цілях!''',
-                'status': Post.Status.PUBLISHED
+                'status': Post.Status.PUBLISHED,
+                'tags': ['education', 'tips', 'learning']
             },
             {
                 'title': 'Перші кроки у Django',
                 'slug': 'pershi-kroky-u-django',
                 'body': '''Django - це потужний Python фреймворк для веб-розробки.
 
-**Мій досвід вивчення Django:**
+## Мій досвід вивчення Django
 
-**Встановлення та налаштування**
+### Встановлення та налаштування
 Почав з встановлення Django через pip і створення першого проекту.
 
-**Робота з моделями**
+### Робота з моделями
 Навчився створювати моделі для роботи з базою даних, використовувати міграції.
 
-**Представлення та шаблони**
+### Представлення та шаблони
 Освоїв створення views і templates для відображення даних користувачам.
 
-**Адміністративна панель**
+### Адміністративна панель
 Django має чудову вбудовану адмін-панель для управління контентом.
 
 Django робить веб-розробку простою, структурованою та приємною!''',
-                'status': Post.Status.PUBLISHED
+                'status': Post.Status.PUBLISHED,
+                'tags': ['django', 'python', 'web-development', 'tutorial']
             },
             {
                 'title': 'Робота з формами в Django',
                 'slug': 'robota-z-formamy-v-django',
                 'body': '''Форми - важлива частина будь-якого веб-застосунку.
 
-**Типи форм у Django:**
+## Типи форм у Django
 
 1. **Form** - для створення стандартних форм
 2. **ModelForm** - для форм на основі моделей
 
-**Валідація даних**
+### Валідація даних
 Django автоматично валідує дані форми і показує помилки користувачу.
 
-**CSRF захист**
+### CSRF захист
 Всі форми захищені від CSRF атак за допомогою спеціальних токенів.
 
 Форми Django спрощують обробку введення користувача!''',
-                'status': Post.Status.PUBLISHED
+                'status': Post.Status.PUBLISHED,
+                'tags': ['django', 'forms', 'web-development']
             },
             {
                 'title': 'Система коментарів для блогу',
                 'slug': 'systema-komentariv',
                 'body': '''Додавання коментарів робить блог інтерактивним.
 
-**Що потрібно для системи коментарів:**
+## Що потрібно для системи коментарів
 
 - Модель Comment з полями для імені, email та тексту
 - Форма для введення коментаря
 - Представлення для обробки коментарів
 - Шаблони для відображення
 
-**Модерація коментарів**
+### Модерація коментарів
 Важливо мати можливість активувати/деактивувати коментарі через адмін-панель.
 
 Коментарі роблять блог живим і цікавим!''',
-                'status': Post.Status.PUBLISHED
+                'status': Post.Status.PUBLISHED,
+                'tags': ['django', 'comments', 'blog']
             },
             {
                 'title': 'Майбутня стаття про тестування (чернетка)',
                 'slug': 'maybutnya-stattya-testuvannya',
                 'body': '''Ця стаття ще в розробці. Скоро тут буде інформація про тестування Django застосунків...
 
-Плануються теми:
+## Плануються теми
+
 - Unit тести
 - Integration тести
 - Test fixtures
 - Coverage аналіз''',
-                'status': Post.Status.DRAFT
+                'status': Post.Status.DRAFT,
+                'tags': ['django', 'testing', 'draft']
             }
         ]
 
         for post_data in posts_data:
+            tags = post_data.pop('tags', [])
             post, created = Post.objects.get_or_create(
                 slug=post_data['slug'],
                 defaults={
@@ -143,8 +152,9 @@ Django автоматично валідує дані форми і показу
                 }
             )
             if created:
+                post.tags.add(*tags)
                 self.stdout.write(
-                    self.style.SUCCESS(f'✓ Created post: {post.title}')
+                    self.style.SUCCESS(f'✓ Created post: {post.title} with tags: {", ".join(tags)}')
                 )
             else:
                 self.stdout.write(
