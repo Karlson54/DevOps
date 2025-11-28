@@ -1,4 +1,6 @@
 from pathlib import Path
+import certifi
+import ssl
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,13 +11,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'django.contrib.sites',        # НОВИЙ - для sitemap
+    'django.contrib.sitemaps',     # НОВИЙ - для sitemap
+    'blog.apps.BlogConfig',        # ЗМІНЕНО - замість просто 'blog'
+    'taggit',                      # НОВИЙ - для тегів
 ]
+
+SITE_ID = 1
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Додаємо шлях до шаблонів
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -38,14 +45,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Для розробки
-# Для production використовуйте:
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'your_account@gmail.com'
-# EMAIL_HOST_PASSWORD = 'your_password'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'anruban2001@gmail.com'
+EMAIL_HOST_PASSWORD = 'pdhpzjuvznlrpfyn'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 DATABASES = {
     'default': {
@@ -62,3 +67,4 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
