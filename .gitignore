@@ -4,31 +4,37 @@ __pycache__/
 *$py.class
 *.so
 .Python
-venv/
 env/
+venv/
 ENV/
-*.pyc
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Django
-*.log
-db.sqlite3
-db.sqlite3-journal
-/media
-/staticfiles
-/static/
+# Environment
+.env
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*.sublime-project
-*.sublime-workspace
 
-# OS
-.DS_Store
-Thumbs.db
+# Docker
+.dockerignore
 
-# Local settings
-local_settings.py
-.env
+# Database
+*.db
+*.sqlite
