@@ -29,18 +29,14 @@ cd lab7
 ### 2. Налаштування змінних оточення
 ```bash
 cp .env.example .env
-# Відредагуйте .env файл за потреби
 ```
 
 ### 3. Запуск через Docker Compose
 ```bash
-# Побудувати та запустити контейнери
 docker-compose up -d
 
-# Переглянути логи
 docker-compose logs -f
 
-# Перевірити статус
 docker-compose ps
 ```
 
@@ -200,14 +196,12 @@ curl http://localhost:5000/health
 
 ### Контейнери не запускаються
 ```bash
-# Очистити все та перезапустити
 docker-compose down -v
 docker-compose up -d --build
 ```
 
 ### База даних не ініціалізується
 ```bash
-# Вручну виконати ініціалізацію
 ./init_db.sh
 ```
 
