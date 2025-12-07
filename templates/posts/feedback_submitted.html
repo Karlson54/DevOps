@@ -1,0 +1,24 @@
+{% extends "posts/base.html" %}
+
+{% block page_title %}Відгук додано{% endblock %}
+
+{% block main_content %}
+
+<div class="feedback-result">
+    {% if feedback %}
+        <div class="success-message">
+            <h1>Дякуємо за ваш відгук!</h1>
+            <p>Ваш коментар успішно додано до статті.</p>
+        </div>
+    {% else %}
+        <div class="error-message">
+            <h1>Помилка при додаванні відгуку</h1>
+            {% include "posts/components/feedback_form.html" %}
+        </div>
+    {% endif %}
+<a href="{{ article.get_absolute_url }}" class="btn">
+    Повернутися до статті
+</a>
+</div>
+{% endblock %}
+`````````
